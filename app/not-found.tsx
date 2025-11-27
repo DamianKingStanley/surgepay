@@ -1,67 +1,93 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
-import { Home, ArrowLeft, Compass } from "lucide-react";
+import { motion } from "framer-motion";
+import { FiHome, FiArrowLeft } from "react-icons/fi";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#FDFDFD] to-[#F5F7FA] flex items-center justify-center px-4">
-      <div className="max-w-md w-full text-center">
-        {/* Icon */}
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center px-6">
+      <div className="text-center">
         <motion.div
-          initial={{ scale: 0, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ duration: 0.7, type: "spring" }}
-          className="mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
-          <div className="w-32 h-32 mx-auto bg-gradient-to-br from-[#334039] to-[#8BD8BD] rounded-3xl flex items-center justify-center shadow-2xl">
-            <Compass className="w-16 h-16 text-white" />
-          </div>
-        </motion.div>
-
-        {/* Content */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-        >
-          <h1 className="text-6xl font-bold bg-gradient-to-r from-[#334039] to-[#334039] bg-clip-text text-transparent mb-4">
+          {/* 404 Number */}
+          <motion.h1
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-8xl lg:text-9xl font-bold text-white mb-4"
+          >
             404
-          </h1>
+          </motion.h1>
 
-          <h2 className="text-2xl font-light text-gray-900 mb-4">
-            Lost in Space?
-          </h2>
+          {/* Title */}
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-2xl lg:text-3xl font-bold text-white mb-6"
+          >
+            Page Not Found
+          </motion.h2>
 
-          <p className="text-gray-600 mb-8">
-            The page you&apos;re looking for doesn&apos;t exist or has been
-            moved.
-          </p>
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="text-gray-300 text-lg mb-8 max-w-md mx-auto leading-relaxed"
+          >
+            Sorry, we couldn&apos;t find the page you&apos;re looking for. The
+            page might have been moved, deleted, or you entered an incorrect
+            URL.
+          </motion.p>
 
-          {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                href="/"
-                className="flex items-center justify-center space-x-2 px-6 py-3 bg-[#334039] text-white rounded-lg font-medium hover:bg-[#D9E3DD] transition-all duration-300"
-              >
-                <Home className="w-4 h-4" />
-                <span>Home Page</span>
+          {/* Action Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          >
+            <Link
+              href="/"
+              className="bg-[#00ff88] text-gray-900 px-6 py-3 rounded-lg font-bold hover:bg-[#00e579] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
+            >
+              <FiHome className="w-5 h-5" />
+              Back to Home
+            </Link>
+
+            <button
+              onClick={() => window.history.back()}
+              className="border border-gray-600 text-gray-300 px-6 py-3 rounded-lg font-medium hover:bg-white/10 hover:text-white transition-all duration-300 flex items-center gap-2"
+            >
+              <FiArrowLeft className="w-5 h-5" />
+              Go Back
+            </button>
+          </motion.div>
+
+          {/* Additional Help */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 1 }}
+            className="mt-8 text-gray-400 text-sm"
+          >
+            <p>
+              Need help?{" "}
+              <Link href="/contact" className="text-[#00ff88] hover:underline">
+                Contact support
               </Link>
-            </motion.div>
-
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <button
-                onClick={() => window.history.back()}
-                className="flex items-center justify-center space-x-2 px-6 py-3 text-[#334039] border border-[#334039] rounded-lg font-medium hover:bg-[#334039] hover:text-white transition-all duration-300"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span>Go Back</span>
-              </button>
-            </motion.div>
-          </div>
+            </p>
+          </motion.div>
         </motion.div>
+
+        {/* Background decorative elements */}
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-[#00ff88] rounded-full opacity-10 blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-[#00ff88] rounded-full opacity-10 blur-3xl"></div>
       </div>
     </div>
   );
