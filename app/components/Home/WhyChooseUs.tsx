@@ -2,37 +2,51 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { FiZap, FiCreditCard, FiGlobe, FiShield } from "react-icons/fi";
+import { useState } from "react";
 
 const WhyChooseUs = () => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   const features = [
     {
-      icon: <FiZap className="w-6 h-6" />,
       title: "Real-Time, Low-Fee Transfers.",
       description:
         "No misdemean. No hidden charges. Your money moves on Stellar; instant, transparent, and secure.",
-      image: "/images/home/feature-1.png", // Replace with your image
+      image: "/images/home/feature-1.png",
+      bgColor: "bg-white",
+      textColor: "text-gray-900",
+      hoverBgColor: "bg-white",
+      hoverTextColor: "text-gray-900",
     },
     {
-      icon: <FiCreditCard className="w-6 h-6" />,
       title: "One Platform For Payments, Remittance, And Spending.",
       description:
         "Send money, receive payments, or convert currencies from a single wallet.",
-      image: "/images/home/feature-2.png", // Replace with your image
+      image: "/images/home/feature-2.png",
+      bgColor: "bg-white",
+      textColor: "text-gray-900",
+      hoverBgColor: "bg-black",
+      hoverTextColor: "text-white",
     },
     {
-      icon: <FiGlobe className="w-6 h-6" />,
       title: "Virtual Cards Built For The Global Economy.",
       description:
         "Create stablecoin-backed virtual cards and spend in any currency, anywhere. Perfect for freelancers, travelers, and digital businesses.",
-      image: "/images/home/feature-3.png", // Replace with your image
+      image: "/images/home/feature-3.png",
+      bgColor: "bg-white",
+      textColor: "text-gray-900",
+      hoverBgColor: "bg-gradient-to-br from-[#014330] to-[#017755]",
+      hoverTextColor: "text-white",
     },
     {
-      icon: <FiShield className="w-6 h-6" />,
       title: "Powered By Blockchain, Made For Humans.",
       description:
         "Enjoy all the speed and transparency of Web3, wrapped in a simple, modern interface that feels familiar.",
-      image: "/images/home/feature-4.png", // Replace with your image
+      image: "/images/home/feature-4.png",
+      bgColor: "bg-white",
+      textColor: "text-gray-900",
+      hoverBgColor: "bg-[#A57000]",
+      hoverTextColor: "text-white",
     },
   ];
 
@@ -57,7 +71,7 @@ const WhyChooseUs = () => {
         </motion.div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {features.map((feature, index) => (
             <motion.div
               key={index}
@@ -65,81 +79,134 @@ const WhyChooseUs = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="flex flex-col md:flex-row gap-6 items-start"
+              className={`relative p-8 rounded-2xl shadow-lg transition-all duration-500 ease-in-out ${
+                hoveredIndex === index
+                  ? `${feature.hoverBgColor} ${feature.hoverTextColor} shadow-2xl`
+                  : `${feature.bgColor} ${feature.textColor}`
+              }`}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
-              {/* Icon */}
-              <div className="flex-shrink-0 w-12 h-12 bg-[#00ff88] rounded-xl flex items-center justify-center text-gray-900">
-                {feature.icon}
-              </div>
-
-              {/* Content */}
-              <div className="flex-1">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 mb-4 leading-relaxed">
-                  {feature.description}
-                </p>
-
-                {/* Feature Image */}
-                <div className="w-full max-w-xs">
-                  <Image
-                    src={feature.image}
-                    width={300}
-                    height={200}
-                    alt={feature.title}
-                    className="w-full h-auto object-cover rounded-lg shadow-md"
-                  />
+              <div className="flex flex-col h-full">
+                {/* Feature Image Container */}
+                <div className="mb-6 relative">
+                  {index === 1 && hoveredIndex === 1 ? (
+                    // Second feature - Two cards swiping out
+                    <div className="relative h-32">
+                      <motion.div
+                        initial={{ x: 0, rotate: 0 }}
+                        animate={{ x: -20, rotate: -5 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                        className="absolute left-0 top-0"
+                      >
+                        <Image
+                          src={feature.image}
+                          width={120}
+                          height={80}
+                          alt={feature.title}
+                          className="w-30 h-20 object-contain"
+                        />
+                      </motion.div>
+                      <motion.div
+                        initial={{ x: 0, rotate: 0 }}
+                        animate={{ x: 20, rotate: 5 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                        className="absolute right-0 top-0"
+                      >
+                        <Image
+                          src={feature.image}
+                          width={120}
+                          height={80}
+                          alt={feature.title}
+                          className="w-30 h-20 object-contain opacity-80"
+                        />
+                      </motion.div>
+                    </div>
+                  ) : (
+                    // Other features - Single image with different animations
+                    <motion.div
+                      animate={{
+                        rotate:
+                          (index === 0 && hoveredIndex === 0) ||
+                          (index === 3 && hoveredIndex === 3)
+                            ? [0, -3, 3, -2, 2, 0]
+                            : 0,
+                        scale:
+                          (index === 0 && hoveredIndex === 0) ||
+                          (index === 3 && hoveredIndex === 3)
+                            ? 1.1
+                            : index === 2 && hoveredIndex === 2
+                              ? 1.3
+                              : 1,
+                      }}
+                      transition={{
+                        duration:
+                          (index === 0 && hoveredIndex === 0) ||
+                          (index === 3 && hoveredIndex === 3)
+                            ? 0.6
+                            : 0.4,
+                        ease: "easeInOut",
+                      }}
+                      className="flex justify-center"
+                    >
+                      <Image
+                        src={feature.image}
+                        width={index === 2 && hoveredIndex === 2 ? 140 : 100}
+                        height={index === 2 && hoveredIndex === 2 ? 112 : 80}
+                        alt={feature.title}
+                        className={`object-contain transition-all duration-500 ${
+                          index === 2 && hoveredIndex === 2
+                            ? "w-35 h-28"
+                            : "w-25 h-20"
+                        }`}
+                      />
+                    </motion.div>
+                  )}
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
 
-        {/* Alternative Layout - If you prefer side-by-side images and text */}
-        {/* Uncomment this section if you want the images to be larger and side-by-side with text */}
-        {/*
-        <div className="space-y-20">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12`}
-            >
-              {/* Image Side * /}
-              <div className="lg:w-1/2">
-                <div className="w-full max-w-md">
-                  <Image
-                    src={feature.image}
-                    width={400}
-                    height={300}
-                    alt={feature.title}
-                    className="w-full h-auto object-cover rounded-2xl shadow-xl"
-                  />
-                </div>
-              </div>
-
-              {/* Content Side * /}
-              <div className="lg:w-1/2">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-[#00ff88] rounded-xl flex items-center justify-center text-gray-900">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900">
+                {/* Content */}
+                <div className="flex-1">
+                  <motion.h3
+                    animate={{
+                      scale: hoveredIndex === index ? 1.05 : 1,
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="text-xl font-bold mb-3 leading-tight"
+                  >
                     {feature.title}
-                  </h3>
+                  </motion.h3>
+                  <motion.p
+                    animate={{
+                      scale: hoveredIndex === index ? 1.02 : 1,
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="leading-relaxed transition-colors duration-500"
+                  >
+                    {feature.description}
+                  </motion.p>
                 </div>
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  {feature.description}
-                </p>
               </div>
+
+              {/* Background overlay for smooth transition */}
+              <motion.div
+                initial={false}
+                animate={{
+                  opacity: hoveredIndex === index ? 1 : 0,
+                }}
+                transition={{ duration: 0.5 }}
+                className={`absolute inset-0 rounded-2xl ${
+                  index === 1
+                    ? "bg-black"
+                    : index === 2
+                      ? "bg-gradient-to-br from-[#014330] to-[#017755]"
+                      : index === 3
+                        ? "bg-[#A57000]"
+                        : "bg-white"
+                } -z-10`}
+              />
             </motion.div>
           ))}
         </div>
-        */}
       </div>
 
       {/* Background decorative elements */}

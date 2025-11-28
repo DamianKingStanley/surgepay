@@ -2,6 +2,7 @@
 
 import AnyTimePayment from "./components/Home/AnyTimePayment";
 import CurrencyRate from "./components/Home/CurrencyRate";
+import FeaturesCarousel from "./components/Home/FeaturesCarousel";
 import Global from "./components/Home/GlobalAcceptance";
 import GlobalSection from "./components/Home/GlobalSection";
 import HeroSection from "./components/Home/HeroSection";
@@ -17,6 +18,7 @@ export default function Home() {
       <WhyChooseUs />
       <CurrencyRate />
       <Global />
+      <FeaturesCarousel />
       <SecurityFAQ />
     </main>
   );
