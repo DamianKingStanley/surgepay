@@ -79,112 +79,177 @@ const WhyChooseUs = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className={`relative p-8 rounded-2xl shadow-lg transition-all duration-500 ease-in-out ${
+              className={`relative p-10 rounded-3xl shadow-xl transition-all duration-500 ease-in-out min-h-[400px] flex flex-col ${
                 hoveredIndex === index
-                  ? `${feature.hoverBgColor} ${feature.hoverTextColor} shadow-2xl`
+                  ? `${feature.hoverBgColor} ${feature.hoverTextColor} shadow-2xl scale-105`
                   : `${feature.bgColor} ${feature.textColor}`
               }`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              <div className="flex flex-col h-full">
+              {/* Content */}
+              <div className="flex-1 flex flex-col">
                 {/* Feature Image Container */}
-                <div className="mb-6 relative">
-                  {index === 1 && hoveredIndex === 1 ? (
-                    // Second feature - Two cards swiping out
-                    <div className="relative h-32">
-                      <motion.div
-                        initial={{ x: 0, rotate: 0 }}
-                        animate={{ x: -20, rotate: -5 }}
-                        transition={{ duration: 0.5, ease: "easeOut" }}
-                        className="absolute left-0 top-0"
-                      >
-                        <Image
-                          src={feature.image}
-                          width={120}
-                          height={80}
-                          alt={feature.title}
-                          className="w-30 h-20 object-contain"
-                        />
-                      </motion.div>
-                      <motion.div
-                        initial={{ x: 0, rotate: 0 }}
-                        animate={{ x: 20, rotate: 5 }}
-                        transition={{ duration: 0.5, ease: "easeOut" }}
-                        className="absolute right-0 top-0"
-                      >
-                        <Image
-                          src={feature.image}
-                          width={120}
-                          height={80}
-                          alt={feature.title}
-                          className="w-30 h-20 object-contain opacity-80"
-                        />
-                      </motion.div>
-                    </div>
-                  ) : (
-                    // Other features - Single image with different animations
+                <div
+                  className={`flex-1 relative mt-auto ${index === 2 ? "order-last" : ""}`}
+                >
+                  {index === 0 ? (
+                    // FEATURE 1: Image at TOP and WIDER
                     <motion.div
+                      className="absolute top-0  transform -translate-x-1/2 w-full flex justify-center"
                       animate={{
-                        rotate:
-                          (index === 0 && hoveredIndex === 0) ||
-                          (index === 3 && hoveredIndex === 3)
-                            ? [0, -3, 3, -2, 2, 0]
-                            : 0,
-                        scale:
-                          (index === 0 && hoveredIndex === 0) ||
-                          (index === 3 && hoveredIndex === 3)
-                            ? 1.1
-                            : index === 2 && hoveredIndex === 2
-                              ? 1.3
-                              : 1,
+                        scale: hoveredIndex === 0 ? 1.3 : 1.1,
+                        y: hoveredIndex === 0 ? 10 : 0,
                       }}
                       transition={{
-                        duration:
-                          (index === 0 && hoveredIndex === 0) ||
-                          (index === 3 && hoveredIndex === 3)
-                            ? 0.6
-                            : 0.4,
-                        ease: "easeInOut",
+                        duration: 0.6,
+                        ease: "easeOut",
                       }}
-                      className="flex justify-center"
                     >
                       <Image
                         src={feature.image}
-                        width={index === 2 && hoveredIndex === 2 ? 140 : 100}
-                        height={index === 2 && hoveredIndex === 2 ? 112 : 80}
+                        width={250}
+                        height={200}
                         alt={feature.title}
-                        className={`object-contain transition-all duration-500 ${
-                          index === 2 && hoveredIndex === 2
-                            ? "w-35 h-28"
-                            : "w-25 h-20"
-                        }`}
+                        className="md:w-100 w-70 md:h-auto object-contain drop-shadow-2xl"
                       />
                     </motion.div>
+                  ) : index === 1 ? (
+                    // FEATURE 2: ATM Card at TOP and WIDER with swipe reveal effect
+                    <div className="absolute top-0 left-1/3 md:left-1/2 transform -translate-x-1/2 w-full">
+                      <motion.div
+                        className="relative mx-auto"
+                        animate={{
+                          scale: hoveredIndex === 1 ? 1.25 : 1.1,
+                          y: hoveredIndex === 1 ? 5 : 0,
+                        }}
+                        transition={{
+                          duration: 0.6,
+                          ease: "easeOut",
+                        }}
+                      >
+                        {/* Main Card */}
+                        <motion.div
+                          animate={{
+                            x: hoveredIndex === 1 ? -20 : 0,
+                            rotate: hoveredIndex === 1 ? -5 : 0,
+                          }}
+                          transition={{
+                            duration: 0.8,
+                            ease: "easeOut",
+                          }}
+                          className="z-20 relative"
+                        >
+                          <Image
+                            src={feature.image}
+                            width={400}
+                            height={200}
+                            alt={feature.title}
+                            className="w-100 h-auto object-contain drop-shadow-2xl"
+                          />
+                        </motion.div>
+
+                        {/* Secondary Card - Swipes out from behind */}
+                        <motion.div
+                          initial={{ opacity: 0, x: 0, scale: 0.9 }}
+                          animate={{
+                            opacity: hoveredIndex === 1 ? 1 : 0,
+                            x: hoveredIndex === 1 ? 80 : 0,
+                            rotate: hoveredIndex === 1 ? 8 : 0,
+                            scale: hoveredIndex === 1 ? 1.1 : 0.9,
+                          }}
+                          transition={{
+                            duration: 0.8,
+                            ease: "easeOut",
+                            delay: hoveredIndex === 1 ? 0.2 : 0,
+                          }}
+                          className="absolute top-0 left-0 z-10"
+                        >
+                          <Image
+                            src={feature.image}
+                            width={400}
+                            height={200}
+                            alt={feature.title}
+                            className="w-100 h-auto object-contain drop-shadow-2xl opacity-90"
+                          />
+                        </motion.div>
+                      </motion.div>
+                    </div>
+                  ) : index === 2 ? (
+                    // FEATURE 3: Image starts at BOTTOM RIGHT and grows LARGE
+                    <motion.div
+                      className="absolute top-0 bottom-0 right-0 origin-bottom-right"
+                      initial={false}
+                      animate={{
+                        scale: hoveredIndex === 2 ? 1.9 : 1,
+                        x: hoveredIndex === 2 ? -0 : 0,
+                        y: hoveredIndex === 2 ? -10 : 0,
+                      }}
+                      transition={{
+                        duration: 0.7,
+                        ease: "easeOut",
+                      }}
+                    >
+                      <Image
+                        src={feature.image}
+                        width={120}
+                        height={90}
+                        alt={feature.title}
+                        className="w-30 h-22 object-contain drop-shadow-2xl"
+                      />
+                    </motion.div>
+                  ) : index === 3 ? (
+                    // FEATURE 4: Image at TOP and SMALLER
+                    <motion.div
+                      className="absolute top-2 left-1/3 transform -translate-x-1/2"
+                      animate={{
+                        scale: hoveredIndex === 3 ? 1.4 : 1,
+                        y: hoveredIndex === 3 ? 5 : 0,
+                      }}
+                      transition={{
+                        duration: 0.5,
+                        ease: "easeOut",
+                      }}
+                    >
+                      <Image
+                        src={feature.image}
+                        width={100}
+                        height={80}
+                        alt={feature.title}
+                        className="w-35 h-21 object-contain drop-shadow-xl"
+                      />
+                    </motion.div>
+                  ) : (
+                    // Default fallback
+                    <div className="flex justify-center items-center">
+                      <Image
+                        src={feature.image}
+                        width={120}
+                        height={85}
+                        alt={feature.title}
+                        className="w-35 h-20 object-contain"
+                      />
+                    </div>
                   )}
                 </div>
-
-                {/* Content */}
-                <div className="flex-1">
-                  <motion.h3
-                    animate={{
-                      scale: hoveredIndex === index ? 1.05 : 1,
-                    }}
-                    transition={{ duration: 0.3 }}
-                    className="text-xl font-bold mb-3 leading-tight"
-                  >
-                    {feature.title}
-                  </motion.h3>
-                  <motion.p
-                    animate={{
-                      scale: hoveredIndex === index ? 1.02 : 1,
-                    }}
-                    transition={{ duration: 0.3 }}
-                    className="leading-relaxed transition-colors duration-500"
-                  >
-                    {feature.description}
-                  </motion.p>
-                </div>
+                <motion.h3
+                  animate={{
+                    scale: hoveredIndex === index ? 1.05 : 1,
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="text-2xl font-bold mb-4 leading-tight"
+                >
+                  {feature.title}
+                </motion.h3>
+                <motion.p
+                  animate={{
+                    scale: hoveredIndex === index ? 1.02 : 1,
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="text-lg leading-relaxed transition-colors duration-500 mb-6"
+                >
+                  {feature.description}
+                </motion.p>
               </div>
 
               {/* Background overlay for smooth transition */}
@@ -194,7 +259,7 @@ const WhyChooseUs = () => {
                   opacity: hoveredIndex === index ? 1 : 0,
                 }}
                 transition={{ duration: 0.5 }}
-                className={`absolute inset-0 rounded-2xl ${
+                className={`absolute inset-0 rounded-3xl ${
                   index === 1
                     ? "bg-black"
                     : index === 2

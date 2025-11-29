@@ -79,166 +79,111 @@ const WhyChooseUs = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className={`relative p-10 rounded-3xl shadow-xl transition-all duration-500 ease-in-out min-h-[400px] flex flex-col ${
+              className={`relative p-8 rounded-2xl shadow-lg transition-all duration-500 ease-in-out ${
                 hoveredIndex === index
-                  ? `${feature.hoverBgColor} ${feature.hoverTextColor} shadow-2xl scale-105`
+                  ? `${feature.hoverBgColor} ${feature.hoverTextColor} shadow-2xl`
                   : `${feature.bgColor} ${feature.textColor}`
               }`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              {/* Content */}
-              <div className="flex-1 flex flex-col">
-                <motion.h3
-                  animate={{
-                    scale: hoveredIndex === index ? 1.05 : 1,
-                  }}
-                  transition={{ duration: 0.3 }}
-                  className="text-2xl font-bold mb-4 leading-tight"
-                >
-                  {feature.title}
-                </motion.h3>
-                <motion.p
-                  animate={{
-                    scale: hoveredIndex === index ? 1.02 : 1,
-                  }}
-                  transition={{ duration: 0.3 }}
-                  className="text-lg leading-relaxed transition-colors duration-500 mb-6"
-                >
-                  {feature.description}
-                </motion.p>
-
+              <div className="flex flex-col h-full">
                 {/* Feature Image Container */}
-                <div className="flex-1 relative mt-auto">
+                <div className="mb-6 relative">
                   {index === 1 && hoveredIndex === 1 ? (
-                    // Second feature - Two cards swiping out smoothly
-                    <div className="relative h-40">
+                    // Second feature - Two cards swiping out
+                    <div className="relative h-32">
                       <motion.div
-                        initial={{ x: 0, y: 0, rotate: 0, scale: 1 }}
-                        animate={{
-                          x: -40,
-                          y: -10,
-                          rotate: -15,
-                          scale: 1.1,
-                        }}
-                        transition={{
-                          duration: 0.8,
-                          ease: "easeOut",
-                          type: "spring",
-                          stiffness: 100,
-                        }}
-                        className="absolute left-0 top-0 z-20"
+                        initial={{ x: 0, rotate: 0 }}
+                        animate={{ x: -20, rotate: -5 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                        className="absolute left-0 top-0"
                       >
                         <Image
                           src={feature.image}
-                          width={160}
-                          height={120}
+                          width={120}
+                          height={80}
                           alt={feature.title}
-                          className="w-40 h-30 object-contain drop-shadow-2xl"
+                          className="w-30 h-20 object-contain"
                         />
                       </motion.div>
                       <motion.div
-                        initial={{ x: 0, y: 0, rotate: 0, scale: 1 }}
-                        animate={{
-                          x: 40,
-                          y: 10,
-                          rotate: 12,
-                          scale: 0.9,
-                        }}
-                        transition={{
-                          duration: 0.8,
-                          ease: "easeOut",
-                          type: "spring",
-                          stiffness: 100,
-                        }}
-                        className="absolute right-0 top-0 z-10"
+                        initial={{ x: 0, rotate: 0 }}
+                        animate={{ x: 20, rotate: 5 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                        className="absolute right-0 top-0"
                       >
                         <Image
                           src={feature.image}
-                          width={160}
-                          height={120}
+                          width={120}
+                          height={80}
                           alt={feature.title}
-                          className="w-40 h-30 object-contain drop-shadow-2xl opacity-90"
+                          className="w-30 h-20 object-contain opacity-80"
                         />
                       </motion.div>
                     </div>
-                  ) : index === 2 ? (
-                    // Third feature - Image positioned at bottom right and grows
-                    <motion.div
-                      animate={{
-                        scale: hoveredIndex === 2 ? 1.8 : 1,
-                        x: hoveredIndex === 2 ? 20 : 0,
-                        y: hoveredIndex === 2 ? 20 : 0,
-                      }}
-                      transition={{
-                        duration: 0.6,
-                        ease: "easeOut",
-                      }}
-                      className="absolute bottom-4 right-4"
-                    >
-                      <Image
-                        src={feature.image}
-                        width={120}
-                        height={90}
-                        alt={feature.title}
-                        className="w-30 h-22 object-contain drop-shadow-xl"
-                      />
-                    </motion.div>
-                  ) : index === 0 ? (
-                    // First feature - Larger image with swirl tilt
-                    <motion.div
-                      animate={{
-                        rotate: hoveredIndex === 0 ? [0, -10, 5, -5, 2, 0] : 0,
-                        scale: hoveredIndex === 0 ? 1.4 : 1.2,
-                      }}
-                      transition={{
-                        duration: 1.2,
-                        ease: "easeInOut",
-                        times: [0, 0.2, 0.4, 0.6, 0.8, 1],
-                      }}
-                      className="flex justify-center items-center"
-                    >
-                      <Image
-                        src={feature.image}
-                        width={200}
-                        height={150}
-                        alt={feature.title}
-                        className="w-50 h-38 object-contain drop-shadow-2xl"
-                      />
-                    </motion.div>
-                  ) : index === 3 ? (
-                    // Fourth feature - Tilt animation
-                    <motion.div
-                      animate={{
-                        rotate: hoveredIndex === 3 ? [0, -8, 6, -4, 0] : 0,
-                        scale: hoveredIndex === 3 ? 1.3 : 1.1,
-                      }}
-                      transition={{
-                        duration: 0.8,
-                        ease: "easeInOut",
-                      }}
-                      className="flex justify-center items-center"
-                    >
-                      <Image
-                        src={feature.image}
-                        width={160}
-                        height={120}
-                        alt={feature.title}
-                        className="w-40 h-30 object-contain drop-shadow-2xl"
-                      />
-                    </motion.div>
                   ) : (
-                    // Default state for other features
-                    <div className="flex justify-center items-center">
+                    // Other features - Single image with different animations
+                    <motion.div
+                      animate={{
+                        rotate:
+                          (index === 0 && hoveredIndex === 0) ||
+                          (index === 3 && hoveredIndex === 3)
+                            ? [0, -3, 3, -2, 2, 0]
+                            : 0,
+                        scale:
+                          (index === 0 && hoveredIndex === 0) ||
+                          (index === 3 && hoveredIndex === 3)
+                            ? 1.1
+                            : index === 2 && hoveredIndex === 2
+                              ? 1.3
+                              : 1,
+                      }}
+                      transition={{
+                        duration:
+                          (index === 0 && hoveredIndex === 0) ||
+                          (index === 3 && hoveredIndex === 3)
+                            ? 0.6
+                            : 0.4,
+                        ease: "easeInOut",
+                      }}
+                      className="flex justify-center"
+                    >
                       <Image
                         src={feature.image}
-                        width={140}
-                        height={105}
+                        width={index === 2 && hoveredIndex === 2 ? 140 : 100}
+                        height={index === 2 && hoveredIndex === 2 ? 112 : 80}
                         alt={feature.title}
-                        className="w-35 h-26 object-contain"
+                        className={`object-contain transition-all duration-500 ${
+                          index === 2 && hoveredIndex === 2
+                            ? "w-35 h-28"
+                            : "w-25 h-20"
+                        }`}
                       />
-                    </div>
+                    </motion.div>
                   )}
+                </div>
+
+                {/* Content */}
+                <div className="flex-1">
+                  <motion.h3
+                    animate={{
+                      scale: hoveredIndex === index ? 1.05 : 1,
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="text-xl font-bold mb-3 leading-tight"
+                  >
+                    {feature.title}
+                  </motion.h3>
+                  <motion.p
+                    animate={{
+                      scale: hoveredIndex === index ? 1.02 : 1,
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="leading-relaxed transition-colors duration-500"
+                  >
+                    {feature.description}
+                  </motion.p>
                 </div>
               </div>
 
@@ -249,7 +194,7 @@ const WhyChooseUs = () => {
                   opacity: hoveredIndex === index ? 1 : 0,
                 }}
                 transition={{ duration: 0.5 }}
-                className={`absolute inset-0 rounded-3xl ${
+                className={`absolute inset-0 rounded-2xl ${
                   index === 1
                     ? "bg-black"
                     : index === 2
