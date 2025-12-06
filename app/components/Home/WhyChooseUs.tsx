@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
 
-const WhyChooseUss = () => {
+const WhyChooseUs = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const features = [
@@ -95,14 +95,14 @@ const WhyChooseUss = () => {
                   className={`flex-1 relative ${index === 2
                     ? " order-last mt-auto flex justify-end items-end"
                     : "mt-auto"
-                    }`}
+                    } `}
                 >
                   {index === 0 ? (
                     // FEATURE 1: Image at TOP and WIDER
                     <motion.div
                       className="absolute top-0 transform -translate-x-1/2 w-full flex justify-center"
                       animate={{
-                        scale: hoveredIndex === 0 ? 1.3 : 1.1,
+                        scale: hoveredIndex === 0 ? 1.2 : 1.1,
                         y: hoveredIndex === 0 ? 10 : 0,
                       }}
                       transition={{
@@ -182,14 +182,14 @@ const WhyChooseUss = () => {
                     </div>
 
                   ) : index === 2 ? (
-                    // FEATURE 3: Image starts at BOTTOM RIGHT and grows LARGE
                     <motion.div
-                      className="absolute top-0 bottom-0 right-0 origin-bottom-right"
-                      initial={false}
+                      className=" bottom-0 right-0"
+                      style={{ transformOrigin: "bottom right" }}
+                      initial={{ scale: 1 }}
                       animate={{
-                        scale: hoveredIndex === 2 ? 2.0 : 1,
-                        x: hoveredIndex === 1 ? -0 : 0,
-                        y: hoveredIndex === 2 ? -10 : 0,
+                        scale: hoveredIndex === 2 ? 2 : 1,
+                        x: hoveredIndex === 2 ? -20 : 0, // move left slightly if needed
+                        y: hoveredIndex === 2 ? -20 : 0, // move up slightly if needed
                       }}
                       transition={{
                         duration: 0.7,
@@ -204,6 +204,7 @@ const WhyChooseUss = () => {
                         className="w-30 h-22 object-contain drop-shadow-2xl"
                       />
                     </motion.div>
+
                   ) : index === 3 ? (
                     // FEATURE 4: Image at TOP and SMALLER
                     <motion.div
@@ -260,7 +261,7 @@ const WhyChooseUss = () => {
                   )}
                 </div>
                 {/* Text Content */}
-                <div className="flex-1">
+                <div className="flex-1 gap-2 ">
                   <motion.h3
                     animate={{
                       scale: hoveredIndex === index ? 1.05 : 1,
@@ -312,4 +313,4 @@ const WhyChooseUss = () => {
   );
 };
 
-export default WhyChooseUss;
+export default WhyChooseUs;
