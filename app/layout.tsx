@@ -81,14 +81,14 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "../public/favicon.ico",
-    shortcut: "../public/favicon-16x16.png",
-    apple: "../public/apple-touch-icon.png",
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
   },
-  manifest: "../public/site.webmanifest",
-  // verification: {
-  //   google: "your-google-verification-code",
-  // },
+  manifest: "/site.webmanifest",
+  verification: {
+    google: "your-google-verification-code",
+  },
 };
 export default function RootLayout({
   children,
