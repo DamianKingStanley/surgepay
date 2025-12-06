@@ -86,9 +86,9 @@ export const metadata: Metadata = {
     apple: "../public/apple-touch-icon.png",
   },
   manifest: "../public/site.webmanifest",
-  verification: {
-    google: "your-google-verification-code",
-  },
+  // verification: {
+  //   google: "your-google-verification-code",
+  // },
 };
 export default function RootLayout({
   children,
