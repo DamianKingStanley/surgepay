@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./components/ThemeProvider";
-// import { AuthProvider } from "./contexts/AuthContext";
 import PageLayout from "./components/common/PageLayout";
-import SessionWrapper from "./components/SessionWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -83,11 +81,11 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    icon: "../public/favicon.ico",
+    shortcut: "../public/favicon-16x16.png",
+    apple: "../public/apple-touch-icon.png",
   },
-  manifest: "/site.webmanifest",
+  manifest: "../public/site.webmanifest",
   verification: {
     google: "your-google-verification-code",
   },
@@ -103,11 +101,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased  bg-white text-black`}
       >
-        <SessionWrapper>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <PageLayout>{children}</PageLayout>
-          </ThemeProvider>
-        </SessionWrapper>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <PageLayout>{children}</PageLayout>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -14,12 +14,23 @@ export default function Home() {
     <main>
       <HeroSection />
       <GlobalSection />
-      <AnyTimePayment />
-      <WhyChooseUs />
+      <div id="products">
+        <AnyTimePayment />
+
+
+      </div>
+      <div id="features">
+        <WhyChooseUs />
+
+      </div>
       <CurrencyRate />
       <Global />
       <FeaturesCarousel />
-      <SecurityFAQ />
+      <div id="faq">
+        <SecurityFAQ />
+
+
+      </div>
     </main>
   );
 }

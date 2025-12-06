@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
 
-const WhyChooseUs = () => {
+const WhyChooseUss = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const features = [
@@ -22,7 +22,9 @@ const WhyChooseUs = () => {
       title: "One Platform For Payments, Remittance, And Spending.",
       description:
         "Send money, receive payments, or convert currencies from a single wallet.",
-      image: "/images/home/feature-2.png",
+      image: "/images/home/surgecard1.png",
+      // Added a secondary image for the swipe effect
+      secondaryImage: "/images/home/surgecard2.png",
       bgColor: "bg-white",
       textColor: "text-gray-900",
       hoverBgColor: "bg-black",
@@ -32,7 +34,7 @@ const WhyChooseUs = () => {
       title: "Virtual Cards Built For The Global Economy.",
       description:
         "Create stablecoin-backed virtual cards and spend in any currency, anywhere. Perfect for freelancers, travelers, and digital businesses.",
-      image: "/images/home/feature-3.png",
+      image: "/images/home/phonemoney.jpg",
       bgColor: "bg-white",
       textColor: "text-gray-900",
       hoverBgColor: "bg-gradient-to-br from-[#014330] to-[#017755]",
@@ -79,11 +81,10 @@ const WhyChooseUs = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className={`relative p-10 rounded-3xl shadow-xl transition-all duration-500 ease-in-out min-h-[400px] flex flex-col ${
-                hoveredIndex === index
-                  ? `${feature.hoverBgColor} ${feature.hoverTextColor} shadow-2xl scale-105`
-                  : `${feature.bgColor} ${feature.textColor}`
-              }`}
+              className={`relative p-10 rounded-3xl shadow-xl transition-all duration-500 ease-in-out min-h-[400px] flex flex-col ${hoveredIndex === index
+                ? `${feature.hoverBgColor} ${feature.hoverTextColor} shadow-2xl scale-105`
+                : `${feature.bgColor} ${feature.textColor}`
+                }`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
@@ -91,12 +92,15 @@ const WhyChooseUs = () => {
               <div className="flex-1 flex flex-col">
                 {/* Feature Image Container */}
                 <div
-                  className={`flex-1 relative mt-auto ${index === 2 ? "order-last" : ""}`}
+                  className={`flex-1 relative ${index === 2
+                    ? " order-last mt-auto flex justify-end items-end"
+                    : "mt-auto"
+                    }`}
                 >
                   {index === 0 ? (
                     // FEATURE 1: Image at TOP and WIDER
                     <motion.div
-                      className="absolute top-0  transform -translate-x-1/2 w-full flex justify-center"
+                      className="absolute top-0 transform -translate-x-1/2 w-full flex justify-center"
                       animate={{
                         scale: hoveredIndex === 0 ? 1.3 : 1.1,
                         y: hoveredIndex === 0 ? 10 : 0,
@@ -116,6 +120,7 @@ const WhyChooseUs = () => {
                     </motion.div>
                   ) : index === 1 ? (
                     // FEATURE 2: ATM Card at TOP and WIDER with swipe reveal effect
+
                     <div className="absolute top-0 left-1/3 md:left-1/2 transform -translate-x-1/2 w-full">
                       <motion.div
                         className="relative mx-auto"
@@ -163,10 +168,10 @@ const WhyChooseUs = () => {
                             ease: "easeOut",
                             delay: hoveredIndex === 1 ? 0.2 : 0,
                           }}
-                          className="absolute top-0 left-0 z-10"
+                          className="absolute top-0 z-10"
                         >
                           <Image
-                            src={feature.image}
+                            src={feature.secondaryImage || feature.image}
                             width={400}
                             height={200}
                             alt={feature.title}
@@ -175,14 +180,15 @@ const WhyChooseUs = () => {
                         </motion.div>
                       </motion.div>
                     </div>
+
                   ) : index === 2 ? (
                     // FEATURE 3: Image starts at BOTTOM RIGHT and grows LARGE
                     <motion.div
                       className="absolute top-0 bottom-0 right-0 origin-bottom-right"
                       initial={false}
                       animate={{
-                        scale: hoveredIndex === 2 ? 1.9 : 1,
-                        x: hoveredIndex === 2 ? -0 : 0,
+                        scale: hoveredIndex === 2 ? 2.0 : 1,
+                        x: hoveredIndex === 1 ? -0 : 0,
                         y: hoveredIndex === 2 ? -10 : 0,
                       }}
                       transition={{
@@ -219,6 +225,27 @@ const WhyChooseUs = () => {
                         className="w-35 h-21 object-contain drop-shadow-xl"
                       />
                     </motion.div>
+                  ) : index === 3 ? (
+                    // FEATURE 4: Image at TOP and SMALLER
+                    <motion.div
+                      className="absolute top-2 left-1/3 transform -translate-x-1/2"
+                      animate={{
+                        scale: hoveredIndex === 3 ? 1.4 : 1,
+                        y: hoveredIndex === 3 ? 5 : 0,
+                      }}
+                      transition={{
+                        duration: 0.5,
+                        ease: "easeOut",
+                      }}
+                    >
+                      <Image
+                        src={feature.image}
+                        width={100}
+                        height={80}
+                        alt={feature.title}
+                        className="w-35 h-21 object-contain drop-shadow-xl"
+                      />
+                    </motion.div>
                   ) : (
                     // Default fallback
                     <div className="flex justify-center items-center">
@@ -232,24 +259,29 @@ const WhyChooseUs = () => {
                     </div>
                   )}
                 </div>
-                <motion.h3
-                  animate={{
-                    scale: hoveredIndex === index ? 1.05 : 1,
-                  }}
-                  transition={{ duration: 0.3 }}
-                  className="text-2xl font-bold mb-4 leading-tight"
-                >
-                  {feature.title}
-                </motion.h3>
-                <motion.p
-                  animate={{
-                    scale: hoveredIndex === index ? 1.02 : 1,
-                  }}
-                  transition={{ duration: 0.3 }}
-                  className="text-lg leading-relaxed transition-colors duration-500 mb-6"
-                >
-                  {feature.description}
-                </motion.p>
+                {/* Text Content */}
+                <div className="flex-1">
+                  <motion.h3
+                    animate={{
+                      scale: hoveredIndex === index ? 1.05 : 1,
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="text-2xl font-bold mb-4 leading-tight"
+                  >
+                    {feature.title}
+                  </motion.h3>
+                  <motion.p
+                    animate={{
+                      scale: hoveredIndex === index ? 1.02 : 1,
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="text-lg leading-relaxed transition-colors duration-500 mb-6"
+                  >
+                    {feature.description}
+                  </motion.p>
+                </div>
+
+
               </div>
 
               {/* Background overlay for smooth transition */}
@@ -259,15 +291,14 @@ const WhyChooseUs = () => {
                   opacity: hoveredIndex === index ? 1 : 0,
                 }}
                 transition={{ duration: 0.5 }}
-                className={`absolute inset-0 rounded-3xl ${
-                  index === 1
-                    ? "bg-black"
-                    : index === 2
-                      ? "bg-gradient-to-br from-[#014330] to-[#017755]"
-                      : index === 3
-                        ? "bg-[#A57000]"
-                        : "bg-white"
-                } -z-10`}
+                className={`absolute inset-0 rounded-3xl ${index === 1
+                  ? "bg-black"
+                  : index === 2
+                    ? "bg-gradient-to-br from-[#014330] to-[#017755]"
+                    : index === 3
+                      ? "bg-[#A57000]"
+                      : "bg-white"
+                  } -z-10`}
               />
             </motion.div>
           ))}
@@ -281,4 +312,4 @@ const WhyChooseUs = () => {
   );
 };
 
-export default WhyChooseUs;
+export default WhyChooseUss;

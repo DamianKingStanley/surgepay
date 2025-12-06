@@ -35,14 +35,16 @@ const CurrencyRate = () => {
           className="w-full relative"
         >
           {/* Second Image - Base Image */}
-          <Image
-            src="/images/home/currencyrate.jpg"
-            width={1920}
-            height={600}
-            alt="Exchange currencies at real value, your money, your rate."
-            className="w-full h-auto object-cover"
-            priority
-          />
+          <div className="relative w-full h-[600px]">
+            <Image
+              src="/images/home/currencyrate.jpg"
+              alt="Exchange currencies at real value, your money, your rate."
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+
 
           {/* First Image - Stacked on top (left side) */}
           <div className="absolute top-4 left-4 md:top-8 md:left-8 lg:top-12 lg:left-12 w-1/3 md:w-1/4 lg:w-1/5 max-w-[200px]">

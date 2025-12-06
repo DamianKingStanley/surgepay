@@ -15,7 +15,7 @@ const FeaturesSection: React.FC = () => {
       title: "Multi-Currency Wallets",
       description:
         "Deep integration with the Stellar blockchain; fast, reliable, and transparent.",
-      image: "/images/home/wallet.png",
+      image: "/images/home/wallets.png",
     },
     {
       id: 2,
@@ -29,7 +29,7 @@ const FeaturesSection: React.FC = () => {
       title: "Virtual Borderless Cards",
       description:
         "Spend online and offline worldwide with low forex fees, funded by local currency or digital dollars.",
-      image: "/images/home/card.png",
+      image: "/images/home/greencard.png",
     },
   ];
 
@@ -97,7 +97,7 @@ const FeaturesSection: React.FC = () => {
               {/* Small Icon Image */}
               <div className="flex justify-start mb-6">
                 <div className="relative">
-                  <div className="absolute -inset-3 bg-gradient-to-r from-[#014330] to-[#017755] rounded-full blur-lg opacity-20"></div>
+                  <div className="absolute -inset-3  rounded-full blur-lg opacity-20"></div>
                   <Image
                     src={feature.image}
                     width={80}
@@ -202,11 +202,10 @@ const FeaturesSection: React.FC = () => {
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? "bg-[#017755] w-6"
-                    : "bg-gray-300 hover:bg-gray-400"
-                }`}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
+                  ? "bg-[#017755] w-6"
+                  : "bg-gray-300 hover:bg-gray-400"
+                  }`}
               />
             ))}
           </div>
@@ -233,11 +232,10 @@ const FeaturesSection: React.FC = () => {
               {rewards.map((reward, index) => (
                 <div key={index} className="flex items-center gap-3">
                   <div
-                    className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                      reward.checked
-                        ? "bg-green-900 border-white text-white rounded-full"
-                        : "bg-transparent border-white/50"
-                    }`}
+                    className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${reward.checked
+                      ? "bg-green-900 border-white text-white rounded-full"
+                      : "bg-transparent border-white/50"
+                      }`}
                   >
                     {reward.checked && (
                       <svg

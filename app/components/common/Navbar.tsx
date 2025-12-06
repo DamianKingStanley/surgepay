@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FiMenu, FiX } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -10,19 +10,79 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navbarRef = useRef<HTMLElement>(null);
+  const router = useRouter();
 
   const navItems = [
-    { name: "Products", href: "/products" },
-    { name: "Features", href: "/features" },
-    { name: "FAQ", href: "/faq" },
+    { name: "Products", href: "#products" },
+    { name: "Features", href: "#features" },
+    { name: "FAQ", href: "#faq" },
+    { name: "Blogs", href: "/blogs" },
   ];
+
+  const NAVBAR_OFFSET = 90;
+
+  const scrollToHash = (hash: string) => {
+    const id = hash.startsWith("#") ? hash.slice(1) : hash;
+    if (!id) return;
+
+    let attempts = 0;
+    const maxAttempts = 20;
+    const attemptDelay = 100;
+
+    const tryScroll = () => {
+      attempts += 1;
+      const element = document.getElementById(id) || document.querySelector(`#${id}`);
+      if (element) {
+        const top = element.getBoundingClientRect().top + window.scrollY - NAVBAR_OFFSET;
+        window.scrollTo({ top, behavior: "smooth" });
+        return;
+      }
+
+      if (attempts < maxAttempts) {
+        setTimeout(tryScroll, attemptDelay);
+      } else {
+        const fallbackEl = document.querySelector(hash);
+        if (fallbackEl) {
+          const top = (fallbackEl as Element).getBoundingClientRect().top + window.scrollY - NAVBAR_OFFSET;
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+      }
+    };
+
+    tryScroll();
+  };
+
+  const handleNavigation = (href: string) => {
+    setIsOpen(false);
+
+    if (href.startsWith("#")) {
+      const target = `/${href}`;
+
+      const currentPath = window.location.pathname + window.location.hash;
+      if (currentPath === target) {
+        scrollToHash(href);
+        return;
+      }
+      router.push(target);
+
+      setTimeout(() => scrollToHash(href), 120);
+
+      const onHashChange = () => {
+        scrollToHash(href);
+        window.removeEventListener("hashchange", onHashChange);
+      };
+      window.addEventListener("hashchange", onHashChange);
+
+    } else {
+      router.push(href);
+    }
+  };
+
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        navbarRef.current &&
-        !navbarRef.current.contains(event.target as Node)
-      ) {
+      if (navbarRef.current && !navbarRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
@@ -40,20 +100,31 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close menu when clicking ESC key
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscKey);
+    return () => document.removeEventListener("keydown", handleEscKey);
+  }, []);
+
   return (
     <motion.nav
       ref={navbarRef}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100 }}
-      className={`fixed  left-5 md:left-36 top-5 -translate-x-1/2 z-50 
-    w-[90%] sm:w-[85%] md:w-[80%] lg:w-[75%] xl:w-[80%]
-    backdrop-blur-lg transition-all duration-300 rounded-2xl 
-    ${
-      scrolled
-        ? "bg-white/95 text-black shadow-xl border border-gray-200"
-        : "bg-[#33A786] text-white shadow-lg border border-gray-100"
-    }`}
+      className={`fixed left-5 md:left-36 top-5 -translate-x-1/2 z-50 
+        w-[90%] sm:w-[85%] md:w-[80%] lg:w-[75%] xl:w-[80%]
+        backdrop-blur-lg transition-all duration-300 rounded-2xl 
+        ${scrolled
+          ? "bg-white/95 text-black shadow-xl border border-gray-200"
+          : "bg-[#33A786] text-white shadow-lg border border-gray-100"
+        }`}
     >
       <div className="container mx-auto px-6">
         <div className="flex justify-between items-center h-16">
@@ -62,7 +133,13 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             className="flex items-center flex-1"
           >
-            <Link href="/" className="flex items-center">
+            <button
+              onClick={() => {
+                router.push("/");
+                setIsOpen(false);
+              }}
+              className="flex items-center cursor-pointer"
+            >
               <Image
                 src="/images/surgelogo.svg"
                 width={120}
@@ -70,20 +147,20 @@ const Navbar = () => {
                 alt="SurgePay"
                 className="h-8 w-auto"
               />
-            </Link>
+            </button>
           </motion.div>
 
           {/* Desktop Navigation - Centered */}
           <div className="hidden lg:flex items-center justify-center flex-1">
             <div className="flex items-center space-x-8">
               {navItems.map((item) => (
-                <Link
+                <button
                   key={item.name}
-                  href={item.href}
-                  className=" hover:text-[#00ff88] transition-colors duration-200 font-medium"
+                  onClick={() => handleNavigation(item.href)}
+                  className="hover:text-[#00ff88] transition-colors duration-200 font-medium cursor-pointer"
                 >
                   {item.name}
-                </Link>
+                </button>
               ))}
             </div>
           </div>
@@ -111,7 +188,7 @@ const Navbar = () => {
 
             <motion.button
               whileTap={{ scale: 0.9 }}
-              className="p-2 rounded-lg focus:outline-none text-gray-300 hover:text-[#00ff88]"
+              className={`p-2 rounded-lg focus:outline-none ${scrolled ? 'text-gray-700' : 'text-white'} hover:text-[#00ff88]`}
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
             >
@@ -133,26 +210,24 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="lg:hidden overflow-hidden bg-gray-800 border-t border-gray-700 rounded-b-2xl"
+            className={`lg:hidden overflow-hidden border-t ${scrolled
+              ? 'bg-white/95 text-black border-gray-200'
+              : 'bg-[#33A786] text-white border-gray-100'
+              } rounded-b-2xl backdrop-blur-lg`}
           >
             <div className="px-6 pb-6 pt-2 space-y-1">
               {navItems.map((item) => (
-                <Link
+                <button
                   key={item.name}
-                  href={item.href}
-                  className="block py-4 text-gray-300 hover:text-[#00ff88] transition-colors duration-200 font-medium border-b border-gray-700 last:border-0"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => handleNavigation(item.href)}
+                  className={`block w-full text-left py-4 transition-colors duration-200 font-medium border-b ${scrolled
+                    ? 'border-gray-200 hover:text-[#00ff88] text-gray-800'
+                    : 'border-gray-100 hover:text-[#00ff88]/90 text-white'
+                    } last:border-0`}
                 >
                   {item.name}
-                </Link>
-              ))}
-
-              {/* Mobile Download Button Full Width */}
-              {/* <div className="pt-4">
-                <button className="w-full bg-[#00ff88] text-gray-900 px-6 py-3 rounded-lg font-bold hover:bg-[#00e579] transition-all duration-300 shadow-lg">
-                  Download App
                 </button>
-              </div> */}
+              ))}
             </div>
           </motion.div>
         )}
