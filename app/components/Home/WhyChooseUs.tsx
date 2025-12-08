@@ -2,10 +2,25 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const WhyChooseUs = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [windowWidth, setWindowWidth] = useState<number>(0);
+  const [isClient, setIsClient] = useState(false);
+
+  // Initialize client-side state
+  useEffect(() => {
+    setIsClient(true);
+    setWindowWidth(window.innerWidth);
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const features = [
     {
@@ -50,6 +65,17 @@ const WhyChooseUs = () => {
       hoverTextColor: "text-white",
     },
   ];
+
+  // Helper function to get image height based on screen size
+  const getImageHeight = (hovered: boolean) => {
+    if (!isClient) return 220; // Default for SSR
+
+    if (windowWidth >= 768) {
+      return hovered ? 300 : 220; // Desktop
+    } else {
+      return hovered ? 260 : 150; // Mobile
+    }
+  };
 
   return (
     <section className="relative py-20 bg-gray-50 overflow-hidden">
@@ -100,7 +126,7 @@ const WhyChooseUs = () => {
                         animate={{
                           scale: hoveredIndex === 0 ? 1.2 : 1.1,
                           y: hoveredIndex === 0 ? 10 : 0,
-                          rotate: hoveredIndex === 0 ? 8 : 0,   // ← LEFT SIDE GOES UP
+                          rotate: hoveredIndex === 0 ? 8 : 0,
                         }}
                         transition={{
                           duration: 0.6,
@@ -112,14 +138,12 @@ const WhyChooseUs = () => {
                           width={300}
                           height={200}
                           alt={feature.title}
-                          className="md:w-100 w-70 md:h-auto object-contain  drop-shadow-2xl"
+                          className="md:w-100 w-70 md:h-auto object-contain drop-shadow-2xl"
                         />
                       </motion.div>
-
                     ) : (
                       // FEATURE 2: ATM Card at TOP and WIDER with swipe reveal effect
                       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full flex justify-center items-center">
-
                         <motion.div
                           className="relative mx-auto"
                           animate={{
@@ -259,42 +283,27 @@ const WhyChooseUs = () => {
                 </div>
 
                 {/* Image Container - Right side */}
-                {/* Image Container - Right side */}
                 <div className="flex-1 md:w-1/2 relative flex justify-end items-end overflow-hidden">
-
-                  <div className="flex-1 md:w-1/2 relative flex justify-end items-end overflow-hidden">
-                    <motion.div
-                      className="relative w-auto"
-                      initial={{ height: window.innerWidth >= 768 ? 220 : 150 }}
-                      animate={{
-                        height: hoveredIndex === 2
-                          ? window.innerWidth >= 768
-                            ? 300   // desktop big
-                            : 260   // mobile big
-                          : window.innerWidth >= 768
-                            ? 220   // desktop small
-                            : 150,  // mobile small
-                      }}
-                      transition={{
-                        duration: 0.55,
-                        ease: "easeOut",
-                      }}
-                    >
-                      <Image
-                        src={features[2].image}
-                        width={120}
-                        height={100}
-                        alt={features[2].title}
-                        className="h-full w-auto object-contain drop-shadow-2xl"
-                      />
-                    </motion.div>
-
-                  </div>
-
-
+                  <motion.div
+                    className="relative w-auto"
+                    initial={{ height: getImageHeight(false) }}
+                    animate={{
+                      height: getImageHeight(hoveredIndex === 2),
+                    }}
+                    transition={{
+                      duration: 0.55,
+                      ease: "easeOut",
+                    }}
+                  >
+                    <Image
+                      src={features[2].image}
+                      width={120}
+                      height={100}
+                      alt={features[2].title}
+                      className="h-full w-auto object-contain drop-shadow-2xl"
+                    />
+                  </motion.div>
                 </div>
-
-
               </div>
 
               {/* Background overlay */}
@@ -346,7 +355,6 @@ const WhyChooseUs = () => {
                       className="w-35 h-21 object-contain drop-shadow-xl"
                     />
                   </motion.div>
-
                 </div>
                 {/* Text Content */}
                 <div className="flex-1">
@@ -355,7 +363,7 @@ const WhyChooseUs = () => {
                       scale: hoveredIndex === 3 ? 1.05 : 1,
                     }}
                     transition={{ duration: 0.3 }}
-                    className="text-2xl font-bold mb-4 leading-tight "
+                    className="text-2xl font-bold mb-4 leading-tight"
                   >
                     {features[3].title}
                   </motion.h3>

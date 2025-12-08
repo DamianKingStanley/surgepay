@@ -35,19 +35,19 @@ const FeaturesSection: React.FC = () => {
       id: 4,
       title: "AI-Powered Security.",
       description: "Advanced fraud detection and compliance with bank-level security for all transactions.",
-      image: "/images/home/shield.jpg",
+      image: "/images/home/shields.png",
     },
     {
       id: 5,
       title: "Business Solutions",
       description: "Prepaid and business credit cards, global payroll, and invoicing tools for enterprises.",
-      image: "/images/home/businessgrowth.jpg",
+      image: "/images/home/business.png",
     },
     {
       id: 6,
       title: "International Remittances",
       description: "Low-cost cross-border transfers with integration to 20+ Nigerian banks and mobile money.",
-      image: "/images/home/Currencyexchange.jpg",
+      image: "/images/home/Currencyexchanges.png",
     },
   ];
 
