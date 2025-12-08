@@ -170,21 +170,29 @@ const Navbar = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-[#C1AB28] text-white px-6 py-2.5 rounded-3xl font-bold hover:bg-[#6c5c02] transition-all duration-300 shadow-lg"
+              className="px-6 py-2.5 rounded-3xl font-bold shadow-lg text-white transition-all duration-300"
+              style={{
+                background: "linear-gradient(to right, #009168, #A0A226)",
+              }}
             >
               Download App
             </motion.button>
           </div>
+
 
           {/* Mobile Menu Button */}
           <div className="flex lg:hidden items-center space-x-4">
             {/* Download App Button - Mobile */}
             <motion.button
               whileTap={{ scale: 0.95 }}
-              className="bg-[#C1AB28] text-white px-6 py-2.5 rounded-3xl font-bold hover:bg-[#6c5c02] transition-all duration-300 shadow-lg text-sm"
+              className="px-6 py-2.5 rounded-3xl font-bold shadow-lg text-white text-sm transition-all duration-300"
+              style={{
+                background: "linear-gradient(to right, #009168, #A0A226)",
+              }}
             >
               Download
             </motion.button>
+
 
             <motion.button
               whileTap={{ scale: 0.9 }}

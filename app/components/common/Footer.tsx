@@ -86,12 +86,13 @@ const Footer: React.FC = () => {
                   <button
                     className="absolute right-1 py-3 px-6 rounded-full font-bold transition-all duration-300 shadow-lg whitespace-nowrap hover:shadow-xl hover:scale-105"
                     style={{
-                      backgroundColor: "#A57000",
+                      background: "linear-gradient(to right, #009168, #A0A226)",
                       color: "#ffffff",
                     }}
                   >
                     Join the waitlist
                   </button>
+
                 </div>
 
                 {/* Social Media Icons */}

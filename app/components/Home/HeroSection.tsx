@@ -1,8 +1,60 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
+import { useState, useEffect } from "react";
 
 const HeroSection = () => {
+  // Array of money-related icons for the rotating O
+  const moneyIcons = [
+    "/images/money-icons/dollar.png",
+    "/images/money-icons/euro.png",
+    "/images/money-icons/naira.png",
+    "/images/money-icons/ksh.png",
+    "/images/money-icons/pound.png",
+    "/images/money-icons/tsh.png",
+    "/images/money-icons/cedis.png",
+
+  ];
+
+  const [currentIconIndex, setCurrentIconIndex] = useState(0);
+
+  // Rotate through icons every 2 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIconIndex((prevIndex) => (prevIndex + 1) % moneyIcons.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [moneyIcons.length]);
+
+  // Split "MONEY" into parts to replace O with icon
+  const renderAnimatedMoneyText = () => {
+    return (
+      <span className="inline-flex items-center">
+        <span className="text-[#047151]">M</span>
+        <motion.div
+          key={currentIconIndex}
+          initial={{ opacity: 0, scale: 0.8, rotateY: -90 }}
+          animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+          exit={{ opacity: 0, scale: 0.8, rotateY: 90 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="inline-block mx-1 relative"
+          style={{ width: "1.2em", height: "1.2em" }}
+        >
+          <Image
+            src={moneyIcons[currentIconIndex]}
+            alt="Money Icon"
+            width={60}
+            height={60}
+            className="w-full h-full object-contain"
+            priority
+          />
+        </motion.div>
+        <span className="text-[#047151]">NEY</span>
+      </span>
+    );
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gray-900 overflow-hidden">
       {/* Background Image */}
@@ -17,8 +69,8 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-black bg-opacity-30"></div>
 
       {/* Content */}
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
+        <div className="max-w-8xl mx-auto text-center">
           {/* Main Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -28,7 +80,7 @@ const HeroSection = () => {
           >
             The World Is Moving <span className="text-[#C28503]">Fast.</span>
             <br />
-            <span className="text-[#047151]">Your Money</span> Should Too
+            Your {renderAnimatedMoneyText()} Should Too
           </motion.h1>
 
           {/* Subtitle */}

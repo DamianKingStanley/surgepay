@@ -12,7 +12,7 @@ const WhyChooseUs = () => {
       title: "Real-Time, Low-Fee Transfers.",
       description:
         "No misdemean. No hidden charges. Your money moves on Stellar; instant, transparent, and secure.",
-      image: "/images/home/feature-1.png",
+      image: "/images/home/fees.png",
       bgColor: "bg-white",
       textColor: "text-gray-900",
       hoverBgColor: "bg-white",
@@ -22,8 +22,8 @@ const WhyChooseUs = () => {
       title: "One Platform For Payments, Remittance, And Spending.",
       description:
         "Send money, receive payments, or convert currencies from a single wallet.",
-      image: "/images/home/surgecard1.png",
-      secondaryImage: "/images/home/surgecard2.png",
+      image: "/images/home/surgecard.png",
+      secondaryImage: "/images/home/surgecarrd2.png",
       bgColor: "bg-white",
       textColor: "text-gray-900",
       hoverBgColor: "bg-black",
@@ -33,7 +33,7 @@ const WhyChooseUs = () => {
       title: "Virtual Cards Built For The Global Economy.",
       description:
         "Create stablecoin-backed virtual cards and spend in any currency, anywhere. Perfect for freelancers, travelers, and digital businesses.",
-      image: "/images/home/feature3.png",
+      image: "/images/home/featurebalance.png",
       bgColor: "bg-white",
       textColor: "text-gray-900",
       hoverBgColor: "bg-gradient-to-br from-[#014330] to-[#017755]",
@@ -43,7 +43,7 @@ const WhyChooseUs = () => {
       title: "Powered By Blockchain, Made For Humans.",
       description:
         "Enjoy all the speed and transparency of Web3, wrapped in a simple, modern interface that feels familiar.",
-      image: "/images/home/feature-4.png",
+      image: "/images/home/feat4.png",
       bgColor: "bg-white",
       textColor: "text-gray-900",
       hoverBgColor: "bg-[#A57000]",
@@ -96,10 +96,11 @@ const WhyChooseUs = () => {
                     {index === 0 ? (
                       // FEATURE 1: Image at TOP and WIDER
                       <motion.div
-                        className="absolute top-0 transform -translate-x-1/2 w-full flex justify-center"
+                        className="absolute top-0 transform -translate-x-1/2 w-full flex justify-center pb-4"
                         animate={{
                           scale: hoveredIndex === 0 ? 1.2 : 1.1,
                           y: hoveredIndex === 0 ? 10 : 0,
+                          rotate: hoveredIndex === 0 ? 8 : 0,   // ← LEFT SIDE GOES UP
                         }}
                         transition={{
                           duration: 0.6,
@@ -108,15 +109,17 @@ const WhyChooseUs = () => {
                       >
                         <Image
                           src={feature.image}
-                          width={250}
+                          width={300}
                           height={200}
                           alt={feature.title}
-                          className="md:w-100 w-70 md:h-auto object-contain drop-shadow-2xl"
+                          className="md:w-100 w-70 md:h-auto object-contain  drop-shadow-2xl"
                         />
                       </motion.div>
+
                     ) : (
                       // FEATURE 2: ATM Card at TOP and WIDER with swipe reveal effect
-                      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-full">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full flex justify-center items-center">
+
                         <motion.div
                           className="relative mx-auto"
                           animate={{
@@ -142,7 +145,7 @@ const WhyChooseUs = () => {
                           >
                             <Image
                               src={feature.image}
-                              width={400}
+                              width={200}
                               height={200}
                               alt={feature.title}
                               className="w-100 h-auto object-contain drop-shadow-2xl"
@@ -167,7 +170,7 @@ const WhyChooseUs = () => {
                           >
                             <Image
                               src={feature.secondaryImage || feature.image}
-                              width={400}
+                              width={200}
                               height={200}
                               alt={feature.title}
                               className="w-100 h-auto object-contain drop-shadow-2xl opacity-90"
@@ -256,28 +259,42 @@ const WhyChooseUs = () => {
                 </div>
 
                 {/* Image Container - Right side */}
-                <div className="flex-1 md:w-1/2 relative flex justify-end items-end">
-                  <motion.div
-                    className="relative"
-                    style={{ transformOrigin: "bottom right" }}
-                    initial={{ scale: 1 }}
-                    animate={{
-                      scale: hoveredIndex === 2 ? 1.8 : 1,
-                    }}
-                    transition={{
-                      duration: 0.7,
-                      ease: "easeOut",
-                    }}
-                  >
-                    <Image
-                      src={features[2].image}
-                      width={120}
-                      height={90}
-                      alt={features[2].title}
-                      className="w-30 h-22 object-contain drop-shadow-2xl"
-                    />
-                  </motion.div>
+                {/* Image Container - Right side */}
+                <div className="flex-1 md:w-1/2 relative flex justify-end items-end overflow-hidden">
+
+                  <div className="flex-1 md:w-1/2 relative flex justify-end items-end overflow-hidden">
+                    <motion.div
+                      className="relative w-auto"
+                      initial={{ height: window.innerWidth >= 768 ? 220 : 150 }}
+                      animate={{
+                        height: hoveredIndex === 2
+                          ? window.innerWidth >= 768
+                            ? 300   // desktop big
+                            : 260   // mobile big
+                          : window.innerWidth >= 768
+                            ? 220   // desktop small
+                            : 150,  // mobile small
+                      }}
+                      transition={{
+                        duration: 0.55,
+                        ease: "easeOut",
+                      }}
+                    >
+                      <Image
+                        src={features[2].image}
+                        width={120}
+                        height={100}
+                        alt={features[2].title}
+                        className="h-full w-auto object-contain drop-shadow-2xl"
+                      />
+                    </motion.div>
+
+                  </div>
+
+
                 </div>
+
+
               </div>
 
               {/* Background overlay */}
@@ -314,6 +331,7 @@ const WhyChooseUs = () => {
                     animate={{
                       scale: hoveredIndex === 3 ? 1.4 : 1,
                       y: hoveredIndex === 3 ? 5 : 0,
+                      rotate: hoveredIndex === 3 ? -8 : 0,
                     }}
                     transition={{
                       duration: 0.5,
@@ -328,6 +346,7 @@ const WhyChooseUs = () => {
                       className="w-35 h-21 object-contain drop-shadow-xl"
                     />
                   </motion.div>
+
                 </div>
                 {/* Text Content */}
                 <div className="flex-1">
