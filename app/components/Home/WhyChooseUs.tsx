@@ -48,7 +48,7 @@ const WhyChooseUs = () => {
       title: "Virtual Cards Built For The Global Economy.",
       description:
         "Create stablecoin-backed virtual cards and spend in any currency, anywhere. Perfect for freelancers, travelers, and digital businesses.",
-      image: "/images/home/featurebalance.png",
+      image: "/images/home/feat3.png",
       bgColor: "bg-white",
       textColor: "text-gray-900",
       hoverBgColor: "bg-gradient-to-br from-[#014330] to-[#017755]",
@@ -286,7 +286,7 @@ const WhyChooseUs = () => {
                 <div className="flex-1 md:w-1/2 relative flex justify-end items-end overflow-hidden">
                   <motion.div
                     className="relative w-auto"
-                    initial={{ height: getImageHeight(false) }}
+                    initial={{ height: getImageHeight(true) }}
                     animate={{
                       height: getImageHeight(hoveredIndex === 2),
                     }}
@@ -297,7 +297,7 @@ const WhyChooseUs = () => {
                   >
                     <Image
                       src={features[2].image}
-                      width={120}
+                      width={420}
                       height={100}
                       alt={features[2].title}
                       className="h-full w-auto object-contain drop-shadow-2xl"
