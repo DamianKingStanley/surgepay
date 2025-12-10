@@ -6,6 +6,18 @@ import { FiMenu, FiX } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
+// Extend the Window interface to include the missing properties
+declare global {
+  interface Window {
+    opera?: any;
+    MSStream?: any;
+  }
+}
+
+interface Navigator {
+  vendor?: string;
+}
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -19,9 +31,39 @@ const Navbar = () => {
     { name: "Blogs", href: "/blogs" },
   ];
 
+  const getMobileOS = () => {
+    // Use optional chaining and provide fallbacks for all properties
+    const userAgent =
+      typeof window !== 'undefined'
+        ? navigator.userAgent || (navigator as Navigator).vendor || window.opera || ''
+        : '';
+
+    if (/android/i.test(userAgent)) {
+      return "android";
+    }
+
+    // iOS detection - use optional chaining for MSStream
+    if (/iPad|iPhone|iPod/.test(userAgent) && !(window as any).MSStream) {
+      return "ios";
+    }
+
+    return "other";
+  };
+
+  const iosLink = "https://apps.apple.com/us/app/surgepay/id6748153951";
+  const androidLink = "https://play.google.com/store/apps/details?id=com.surgepay.app";
+  const defaultLink = "https://www.surgepay.tech"; // fallback
+
+  // Only run getMobileOS on the client side
+  const platform = typeof window !== 'undefined' ? getMobileOS() : 'other';
+  const downloadLink =
+    platform === "ios" ? iosLink : platform === "android" ? androidLink : defaultLink;
+
   const NAVBAR_OFFSET = 90;
 
   const scrollToHash = (hash: string) => {
+    if (typeof window === 'undefined') return;
+
     const id = hash.startsWith("#") ? hash.slice(1) : hash;
     if (!id) return;
 
@@ -77,8 +119,6 @@ const Navbar = () => {
       router.push(href);
     }
   };
-
-
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -167,32 +207,41 @@ const Navbar = () => {
 
           {/* Download App Button - Right */}
           <div className="hidden lg:flex items-center justify-end flex-1">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-6 py-2.5 rounded-3xl font-bold shadow-lg text-white transition-all duration-300"
-              style={{
-                background: "linear-gradient(to right, #009168, #A0A226)",
-              }}
+            <motion.a
+              href={downloadLink}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Download App
-            </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                className="px-6 py-2.5 rounded-3xl font-bold shadow-lg text-white text-sm transition-all duration-300"
+                style={{
+                  background: "linear-gradient(to right, #009168, #A0A226)",
+                }}
+              >
+                Download
+              </motion.button>
+            </motion.a>
           </div>
-
 
           {/* Mobile Menu Button */}
           <div className="flex lg:hidden items-center space-x-4">
             {/* Download App Button - Mobile */}
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              className="px-6 py-2.5 rounded-3xl font-bold shadow-lg text-white text-sm transition-all duration-300"
-              style={{
-                background: "linear-gradient(to right, #009168, #A0A226)",
-              }}
+            <motion.a
+              href={downloadLink}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Download
-            </motion.button>
-
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                className="px-6 py-2.5 rounded-3xl font-bold shadow-lg text-white text-sm transition-all duration-300"
+                style={{
+                  background: "linear-gradient(to right, #009168, #A0A226)",
+                }}
+              >
+                Download
+              </motion.button>
+            </motion.a>
 
             <motion.button
               whileTap={{ scale: 0.9 }}
