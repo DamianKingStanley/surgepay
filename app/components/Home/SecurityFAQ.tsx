@@ -37,11 +37,9 @@ const SecurityFAQ = () => {
 
   return (
     <section className="relative py-20 bg-white overflow-hidden">
-      {/* Top Banner */}
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 py-16 lg:py-20">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-            {/* Left Side - Image */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -60,7 +58,6 @@ const SecurityFAQ = () => {
               </div>
             </motion.div>
 
-            {/* Right Side - Text Content */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -90,7 +87,6 @@ const SecurityFAQ = () => {
         </div>
       </div>
 
-      {/* FAQ Section */}
       <div className="container mx-auto px-6 py-16 lg:py-20">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -108,7 +104,6 @@ const SecurityFAQ = () => {
             </p>
           </motion.div>
 
-          {/* FAQ Accordion */}
           <div className="space-y-4">
             {faqItems.map((item, index) => (
               <motion.div
@@ -159,7 +154,6 @@ const SecurityFAQ = () => {
         </div>
       </div>
 
-      {/* Background decorative elements */}
       <div className="absolute top-1/4 left-10 w-24 h-24 bg-[#00ff88] rounded-full opacity-5 blur-3xl"></div>
       <div className="absolute bottom-1/4 right-10 w-32 h-32 bg-[#00ff88] rounded-full opacity-5 blur-3xl"></div>
     </section>

@@ -5,7 +5,6 @@ import Image from "next/image";
 const CurrencyRate = () => {
   return (
     <section className="relative bg-white overflow-hidden">
-      {/* Top Text Content */}
       <div className="container mx-auto px-6 py-16 lg:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -25,7 +24,6 @@ const CurrencyRate = () => {
         </motion.div>
       </div>
 
-      {/* Full Cover Image Banner */}
       <div className="w-full p-0 md:p-5 px-0 md:px-10">
         <motion.div
           initial={{ opacity: 0, scale: 1.05 }}
@@ -34,7 +32,6 @@ const CurrencyRate = () => {
           viewport={{ once: true }}
           className="w-full relative"
         >
-          {/* Second Image - Base Image */}
           <div className="relative w-full h-[600px]">
             <Image
               src="/images/home/currencyrate.jpg"
@@ -46,7 +43,6 @@ const CurrencyRate = () => {
           </div>
 
 
-          {/* First Image - Stacked on top (left side) */}
           <div className="absolute top-4 left-4 md:top-8 md:left-8 lg:top-12 lg:left-12 w-1/3 md:w-1/4 lg:w-1/5 max-w-[200px]">
             <Image
               src="/images/home/rateimage.png"
@@ -60,7 +56,6 @@ const CurrencyRate = () => {
         </motion.div>
       </div>
 
-      {/* Background decorative elements */}
       <div className="absolute top-20 left-10 w-32 h-32 bg-[#00ff88] rounded-full opacity-10 blur-3xl"></div>
       <div className="absolute bottom-40 right-10 w-40 h-40 bg-[#00ff88] rounded-full opacity-10 blur-3xl"></div>
     </section>

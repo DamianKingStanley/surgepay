@@ -8,10 +8,8 @@ const Global = () => {
     <section className="relative py-20 bg-white overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          {/* Left Side - Two Stacked Images */}
           <div className="lg:w-2/3">
             <div className="relative">
-              {/* Base Image - Larger */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -46,7 +44,6 @@ const Global = () => {
             </div>
           </div>
 
-          {/* Right Side - Content */}
           <div className="lg:w-1/3">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -55,12 +52,10 @@ const Global = () => {
               viewport={{ once: true }}
               className="max-w-lg"
             >
-              {/* Heading */}
               <h2 className="text-2xl  font-bold text-gray-900 mb-6 leading-tight">
                 Global Acceptance
               </h2>
 
-              {/* Description */}
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
                 Send money and receive money across
                 <br />
@@ -68,7 +63,6 @@ const Global = () => {
               </p>
 
               <div className="flex gap-4 mb-12">
-                {/* App Store Button */}
                 <button className="bg-[#0F9354] text-white px-6 py-3 rounded-3xl font-medium hover:bg-[#0C6B3E] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center gap-3 min-w-[180px]">
                   <svg
                     className="w-6 h-6"
@@ -82,7 +76,6 @@ const Global = () => {
                     <div className="text-lg font-bold">App Store</div>
                   </div>
                 </button>
-                {/* Google Play Store Button */}
                 <button className="bg-black text-white px-6 py-3 rounded-3xl font-medium hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center gap-3 min-w-[180px]">
                   <svg
                     className="w-6 h-6"
@@ -102,7 +95,6 @@ const Global = () => {
         </div>
       </div>
 
-      {/* Background decorative elements */}
       <div className="absolute top-10 right-10 w-32 h-32 bg-[#00ff88] rounded-full opacity-5 blur-3xl"></div>
       <div className="absolute bottom-10 left-10 w-40 h-40 bg-[#00ff88] rounded-full opacity-5 blur-3xl"></div>
     </section>

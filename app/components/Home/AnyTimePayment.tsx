@@ -6,7 +6,6 @@ import Image from "next/image";
 const AnyTimePayment = () => {
   return (
     <section className="relative bg-white overflow-hidden">
-      {/* Top Text Content */}
       <div className="container mx-auto px-6 py-16 lg:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -27,7 +26,6 @@ const AnyTimePayment = () => {
         </motion.div>
       </div>
 
-      {/* Full Cover Image Banner */}
       <div className="w-full p-0 md:p-5 px-0 md:px-10">
         <motion.div
           initial={{ opacity: 0, scale: 1.05 }}
@@ -37,7 +35,7 @@ const AnyTimePayment = () => {
           className="w-full"
         >
           <Image
-            src="/images/home/payment-banner.png" // Replace with your banner image path
+            src="/images/home/payment-banner.png"
             width={1920}
             height={600}
             alt="Stress-free payment experience"
@@ -47,7 +45,6 @@ const AnyTimePayment = () => {
         </motion.div>
       </div>
 
-      {/* Background decorative elements */}
       <div className="absolute top-20 left-10 w-32 h-32 bg-[#00ff88] rounded-full opacity-10 blur-3xl"></div>
       <div className="absolute bottom-40 right-10 w-40 h-40 bg-[#00ff88] rounded-full opacity-10 blur-3xl"></div>
     </section>

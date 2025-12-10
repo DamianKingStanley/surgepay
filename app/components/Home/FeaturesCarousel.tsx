@@ -60,14 +60,12 @@ const FeaturesSection: React.FC = () => {
     { text: "Free P2P stablecoin transfers for 6 months", checked: true },
   ];
 
-  // Desktop Navigation: move in batches of 3
   const nextDesktop = () => {
     setCurrentIndex((prev) => {
       const nextIndex = prev + 3;
       if (nextIndex >= features.length) {
-        return 0; // Loop back to start
+        return 0;
       }
-      // Ensure we don't leave orphaned items at the end
       if (features.length - nextIndex < 3 && features.length % 3 !== 0) {
         return features.length - 3;
       }
@@ -79,7 +77,6 @@ const FeaturesSection: React.FC = () => {
     setCurrentIndex((prev) => {
       const prevIndex = prev - 3;
       if (prevIndex < 0) {
-        // Show last complete set of 3
         const lastCompleteSet = features.length - (features.length % 3 || 3);
         return Math.max(0, lastCompleteSet);
       }
@@ -87,7 +84,6 @@ const FeaturesSection: React.FC = () => {
     });
   };
 
-  // Mobile Navigation
   const nextMobile = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % features.length);
   }, [features.length]);
@@ -96,7 +92,6 @@ const FeaturesSection: React.FC = () => {
     setCurrentIndex((prev) => (prev - 1 + features.length) % features.length);
   }, [features.length]);
 
-  // Touch/Click Drag Handling for Mobile
   const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
     setIsDragging(true);
     const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
@@ -116,20 +111,17 @@ const FeaturesSection: React.FC = () => {
     if (!isDragging) return;
 
     setIsDragging(false);
-    const threshold = 50; // Minimum drag distance to trigger navigation
+    const threshold = 50;
 
     if (dragDistance > threshold) {
-      // Dragged left, go next
       nextMobile();
     } else if (dragDistance < -threshold) {
-      // Dragged right, go previous
       prevMobile();
     }
 
     setDragDistance(0);
   };
 
-  // Auto-scroll mobile carousel
   useEffect(() => {
     const interval = setInterval(() => {
       nextMobile();
@@ -137,17 +129,13 @@ const FeaturesSection: React.FC = () => {
     return () => clearInterval(interval);
   }, [nextMobile]);
 
-  // Calculate translate percentage for desktop (show 3 at a time)
   const desktopTranslateX = -Math.min(currentIndex, features.length - 3) * (100 / 3);
 
-  // Add scroll indicators
   const scrollToFeature = (index: number) => {
     if (window.innerWidth >= 1024) {
-      // Desktop: scroll in sets of 3
       const desktopIndex = Math.floor(index / 3) * 3;
       setCurrentIndex(Math.min(desktopIndex, features.length - 3));
     } else {
-      // Mobile: direct index
       setCurrentIndex(index);
     }
   };
@@ -155,7 +143,6 @@ const FeaturesSection: React.FC = () => {
   return (
     <section className="py-16 lg:py-24 bg-white">
       <div className="container mx-auto px-6">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -173,10 +160,8 @@ const FeaturesSection: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Divider */}
         <div className="w-24 h-1 bg-gradient-to-r from-[#014330] to-[#017755] mx-auto mb-12 lg:mb-16 rounded-full"></div>
 
-        {/* Desktop Carousel: show 3 at a time */}
         <div className="hidden lg:block mb-16">
           <div className="flex items-center justify-center relative">
             <button
@@ -234,7 +219,6 @@ const FeaturesSection: React.FC = () => {
             </button>
           </div>
 
-          {/* Desktop Navigation Dots */}
           <div className="flex justify-center items-center mt-8 space-x-2">
             {Array.from({ length: Math.ceil(features.length / 3) }).map((_, index) => (
               <button
@@ -247,7 +231,6 @@ const FeaturesSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Carousel */}
         <div className="lg:hidden relative max-w-4xl mx-auto mb-16">
           <div
             ref={carouselRef}

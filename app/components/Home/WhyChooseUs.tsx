@@ -9,7 +9,6 @@ const WhyChooseUs = () => {
   const [windowWidth, setWindowWidth] = useState<number>(0);
   const [isClient, setIsClient] = useState(false);
 
-  // Initialize client-side state
   useEffect(() => {
     setIsClient(true);
     setWindowWidth(window.innerWidth);
@@ -48,7 +47,7 @@ const WhyChooseUs = () => {
       title: "Virtual Cards Built For The Global Economy.",
       description:
         "Create stablecoin-backed virtual cards and spend in any currency, anywhere. Perfect for freelancers, travelers, and digital businesses.",
-      image: "/images/home/feat3.png",
+      image: "/images/home/dash1.png",
       bgColor: "bg-white",
       textColor: "text-gray-900",
       hoverBgColor: "bg-gradient-to-br from-[#014330] to-[#017755]",
@@ -66,21 +65,19 @@ const WhyChooseUs = () => {
     },
   ];
 
-  // Helper function to get image height based on screen size
   const getImageHeight = (hovered: boolean) => {
-    if (!isClient) return 220; // Default for SSR
+    if (!isClient) return 220;
 
     if (windowWidth >= 768) {
-      return hovered ? 300 : 220; // Desktop
+      return hovered ? 400 : 220;
     } else {
-      return hovered ? 260 : 150; // Mobile
+      return hovered ? 360 : 160;
     }
   };
 
   return (
     <section className="relative py-20 bg-gray-50 overflow-hidden">
       <div className="container mx-auto px-4 md:px-2">
-        {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -97,9 +94,7 @@ const WhyChooseUs = () => {
           </p>
         </motion.div>
 
-        {/* Features Grid - Last row is special 7:3 ratio */}
         <div className="max-w-6xl mx-auto">
-          {/* First row - Features 1 and 2 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             {features.slice(0, 2).map((feature, index) => (
               <motion.div
@@ -115,9 +110,7 @@ const WhyChooseUs = () => {
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
-                {/* Content */}
                 <div className="flex-1 flex flex-col gap-8">
-                  {/* Feature Image Container */}
                   <div className="flex-1 relative mt-auto">
                     {index === 0 ? (
                       // FEATURE 1: Image at TOP and WIDER
@@ -227,7 +220,6 @@ const WhyChooseUs = () => {
                   </div>
                 </div>
 
-                {/* Background overlay */}
                 <motion.div
                   initial={false}
                   animate={{
@@ -258,9 +250,7 @@ const WhyChooseUs = () => {
               onMouseEnter={() => setHoveredIndex(2)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              {/* Content - Flex layout for text left, image right */}
               <div className="flex-1 flex flex-col md:flex-row gap-8">
-                {/* Text Content - Left side */}
                 <div className="flex-1 md:w-1/2">
                   <motion.h3
                     animate={{
@@ -282,8 +272,7 @@ const WhyChooseUs = () => {
                   </motion.p>
                 </div>
 
-                {/* Image Container - Right side */}
-                <div className="flex-1 md:w-1/2 relative flex justify-end items-end overflow-hidden">
+                <div className="flex-1 md:w-1/2 relative flex justify-end items-end z-100">
                   <motion.div
                     className="relative w-auto"
                     initial={{ height: getImageHeight(true) }}
@@ -304,9 +293,9 @@ const WhyChooseUs = () => {
                     />
                   </motion.div>
                 </div>
+
               </div>
 
-              {/* Background overlay */}
               <motion.div
                 initial={false}
                 animate={{
@@ -317,7 +306,6 @@ const WhyChooseUs = () => {
               />
             </motion.div>
 
-            {/* Feature 4 - Takes 3 columns */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -332,9 +320,7 @@ const WhyChooseUs = () => {
             >
               {/* Content */}
               <div className="flex-1 flex flex-col">
-                {/* Feature Image Container */}
                 <div className="flex-1 relative mt-auto">
-                  {/* FEATURE 4: Image at TOP and SMALLER */}
                   <motion.div
                     className="absolute top-2 left-1/3 transform -translate-x-1/2"
                     animate={{
@@ -356,7 +342,6 @@ const WhyChooseUs = () => {
                     />
                   </motion.div>
                 </div>
-                {/* Text Content */}
                 <div className="flex-1">
                   <motion.h3
                     animate={{
@@ -379,7 +364,6 @@ const WhyChooseUs = () => {
                 </div>
               </div>
 
-              {/* Background overlay */}
               <motion.div
                 initial={false}
                 animate={{
@@ -393,7 +377,6 @@ const WhyChooseUs = () => {
         </div>
       </div>
 
-      {/* Background decorative elements */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-[#00ff88] rounded-full opacity-5 blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#00ff88] rounded-full opacity-5 blur-3xl translate-x-1/2 translate-y-1/2"></div>
     </section>
